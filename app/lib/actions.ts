@@ -1,8 +1,8 @@
 'use server';
 
+import { signIn } from "@/auth";
 import { sql } from "@vercel/postgres";
 import { AuthError } from "next-auth";
-import { signIn } from "next-auth/react";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";

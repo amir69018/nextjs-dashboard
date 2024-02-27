@@ -1,3 +1,4 @@
+'use server';
 import { sql } from '@vercel/postgres';
 import {
   CustomerField,
@@ -18,14 +19,8 @@ export async function fetchRevenue() {
   try {
     // Artificially delay a response for demo purposes.
     // Don't do this in production :)
-    noStore();
-
-    console.log('Fetching revenue data...');
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
+   // noStore();
     const data = await sql<Revenue>`SELECT * FROM revenue`;
-
-    console.log('Data fetch completed after 3 seconds.');
 
     return data.rows;
   } catch (error) {
@@ -36,7 +31,7 @@ export async function fetchRevenue() {
 
 export async function fetchLatestInvoices() {
   try {
-    noStore();
+   // noStore();
 
     const data = await sql<LatestInvoiceRaw>`
       SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
@@ -58,7 +53,7 @@ export async function fetchLatestInvoices() {
 
 export async function fetchCardData() {
   try {
-    noStore();
+    //noStore();
 
     // You can probably combine these into a single SQL query
     // However, we are intentionally splitting them to demonstrate
@@ -101,7 +96,7 @@ export async function fetchFilteredInvoices(
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
-    noStore();
+    //noStore();
 
     const invoices = await sql<InvoicesTable>`
       SELECT
@@ -133,7 +128,7 @@ export async function fetchFilteredInvoices(
 
 export async function fetchInvoicesPages(query: string) {
   try {
-    noStore();
+    //noStore();
 
     const count = await sql`SELECT COUNT(*)
     FROM invoices
@@ -156,7 +151,7 @@ export async function fetchInvoicesPages(query: string) {
 
 export async function fetchInvoiceById(id: string) {
   try {
-    noStore();
+    //noStore();
 
     const data = await sql<InvoiceForm>`
       SELECT
@@ -183,7 +178,7 @@ export async function fetchInvoiceById(id: string) {
 
 export async function fetchCustomers() {
   try {
-    noStore();
+   // noStore();
 
     const data = await sql<CustomerField>`
       SELECT
@@ -203,7 +198,7 @@ export async function fetchCustomers() {
 
 export async function fetchFilteredCustomers(query: string) {
   try {
-    noStore();
+   // noStore();
 
     const data = await sql<CustomersTableType>`
 		SELECT
